@@ -49,10 +49,77 @@ class Mouse(object):
         self.x = x
         self.y= y
         self.maze = maze
+        self.previousX = 0
+        self.previousY = 0
         maze.setElement(x,y,3)
+    
+    def previousPosition(self):
+        return "The Mouse was here: ["+str(self.previousX)+" , " + str(self.previousY) +  "]"
         
     def __str__(self):
         return "The Mouse is here: ["+str(self.x)+" , " + str(self.y) +  "]"
+    
+    def moveLeft(self):
+        try:
+            if(self.maze.getElement(self.x, self.y-1) != 1 and self.maze.getElement(self.x, self.y-1) != 2):
+                self.maze.setElement(self.x, self.y-1, 3)
+                self.maze.setElement(self.x, self.y, 0)
+                self.previousX = self.x
+                self.previousY = self.y
+                self.y = self.y - 1
+            else:
+                print("Cannot move, something on the left")
+                
+        except IndexError as error:
+            print("Try again")
+            raise Exception("Error: "+str(error))
+    
+    def moveUp(self):
+        try:
+            if(self.maze.getElement(self.x-1, self.y) != 1 and self.maze.getElement(self.x-1, self.y) != 2):
+                self.maze.setElement(self.x-1, self.y, 3)
+                self.maze.setElement(self.x, self.y, 0)
+                self.previousX = self.x
+                self.previousY = self.y
+                self.x = self.x - 1
+            
+            else:
+                print("Cannot move, something Up")
+                
+        except IndexError as error:
+            print("Try again")
+            raise Exception("Error: "+str(error))
+            
+    def moveDown(self):
+        try:
+            if(self.maze.getElement(self.x+1, self.y) != 1 and self.maze.getElement(self.x+1, self.y) != 2):
+                self.maze.setElement(self.x+1, self.y, 3)
+                self.maze.setElement(self.x, self.y, 0)
+                self.previousX = self.x+1
+                self.previousY = self.y
+                self.x = self.x+1 
+            else:
+                print("Cannot move, something Down")
+                
+        except IndexError as error:
+            print("Try again")
+            raise Exception("Error: "+str(error))
+            
+    def moveRight(self):
+        try:
+            if(self.maze.getElement(self.x, self.y+1) != 1 and self.maze.getElement(self.x, self.y+1) != 2):
+                self.maze.setElement(self.x, self.y+1, 3)
+                self.maze.setElement(self.x, self.y, 0)
+                self.previousX = self.x
+                self.previousY = self.y
+                self.y = self.y + 1
+            else:
+                print("Cannot move, something on the Right")
+                
+        except IndexError as error:
+            print("Try again")
+            raise Exception("Error: "+str(error))
+    
 
 # Recieves a Maze and an initial position of the Cheese
 class Cheese(object):
@@ -67,11 +134,10 @@ class Cheese(object):
 
                
                
-
-def makeMaze():    
+def runSimpleIA():    
     mainMaze = Maze(4)
-    Mouse(3,3,mainMaze)
-    Cheese(2,0,mainMaze)
+    mouse = Mouse(3,3,mainMaze)
+    cheese = Cheese(2,0,mainMaze)
     
     # Obstacles
     mainMaze.setElement(1, 0, 1)
@@ -80,4 +146,13 @@ def makeMaze():
     
     print(mainMaze)
 
-makeMaze()
+    mouse.moveUp()
+    mouse.moveLeft()
+    
+    print(mainMaze)
+    mainMaze.setElement(1,2, 6)
+
+
+runSimpleIA()
+        
+    
