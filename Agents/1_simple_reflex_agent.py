@@ -49,6 +49,7 @@ class Mouse(object):
         self.x = x
         self.y= y
         self.maze = maze
+        maze.setElement(x,y,3)
         
     def __str__(self):
         return "The Mouse is here: ["+str(self.x)+" , " + str(self.y) +  "]"
@@ -59,13 +60,24 @@ class Cheese(object):
         self.x = x
         self.y= y
         self.maze = maze
+        maze.setElement(x,y,2)
         
     def __str__(self):
         return "The Cheese is here["+str(self.x)+" , " + str(self.y) +  "]"
+
+               
                
 
-mainMaze = Maze(4)
-print(mainMaze)
-mainMaze.setElement(0, 1, 3)
-print(mainMaze)
-print(mainMaze.getElement(0, 0))
+def makeMaze():    
+    mainMaze = Maze(4)
+    Mouse(3,3,mainMaze)
+    Cheese(2,0,mainMaze)
+    
+    # Obstacles
+    mainMaze.setElement(1, 0, 1)
+    mainMaze.setElement(1, 3, 1)
+    mainMaze.setElement(3, 2, 1)
+    
+    print(mainMaze)
+
+makeMaze()
