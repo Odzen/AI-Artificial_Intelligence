@@ -30,9 +30,9 @@ class Maze(object):
         assert(type(x) == int and type(y) == int)
         try:
             return self.maze[x][y]
-        except IndexError as error:
-            print("Try again")
-            raise Exception("Error: "+str(error))
+        except IndexError:
+            pass
+            
     
     def __str__(self):
         string = ""
@@ -52,6 +52,7 @@ class Mouse(object):
         self.previousX = 0
         self.previousY = 0
         maze.setElement(x,y,3)
+        self.foundCheese = False
     
     def previousPosition(self):
         return "The Mouse was here: ["+str(self.previousX)+" , " + str(self.previousY) +  "]"
@@ -59,38 +60,50 @@ class Mouse(object):
     def __str__(self):
         return "The Mouse is here: ["+str(self.x)+" , " + str(self.y) +  "]"
     
+    def hadfoundCheese(self):
+        return self.foundCheese
+    
     def isSomethingUp(self):
-        if(self.maze.getElement(self.x-1, self.y) != 1 and self.maze.getElement(self.x-1, self.y) != 2):
+        if(self.maze.getElement(self.x-1, self.y) != 1):
             return False
         else:
             return True
     def isSomethingDown(self):
-        if(self.maze.getElement(self.x+1, self.y) != 1 and self.maze.getElement(self.x+1, self.y) != 2):
+        if(self.maze.getElement(self.x+1, self.y) != 1):
             return False
         else:
             return True
     def isSomethingOnLeft(self):
-        if(self.maze.getElement(self.x, self.y-1) != 1 and self.maze.getElement(self.x, self.y-1) != 2):
+        if(self.maze.getElement(self.x, self.y-1) != 1):
             return False
         else:
             return True
     def isSomethingOnRight(self):
-        if(self.maze.getElement(self.x, self.y+1) != 1 and self.maze.getElement(self.x, self.y+1) != 2):
+        if(self.maze.getElement(self.x, self.y+1) != 1):
             return False
         else:
             return True
         
     def smellCheese(self):
-        pass
+        if(self.maze.getElement(self.x, self.y+1) == 2 or self.maze.getElement(self.x, self.y-1) == 2
+           or self.maze.getElement(self.x+1, self.y) == 2 or self.maze.getElement(self.x-1, self.y) == 2):
+            return True
+        else:
+            return False
     
     def moveLeft(self):
         try:
             if(not(self.isSomethingOnLeft())):
+                if(self.maze.getElement(self.x, self.y-1) == 2):
+                    self.foundCheese = True
+                    print("Found Cheese, Congrats!!")
                 self.maze.setElement(self.x, self.y-1, 3)
                 self.maze.setElement(self.x, self.y, 0)
                 self.previousX = self.x
                 self.previousY = self.y
                 self.y = self.y - 1
+                if(self.smellCheese()):
+                    print("Cheese close!")
             else:
                 print("Cannot move, something on the left")
                 
@@ -101,11 +114,16 @@ class Mouse(object):
     def moveUp(self):
         try:
             if(not (self.isSomethingUp())):
+                if(self.maze.getElement(self.x-1, self.y) == 2):
+                    self.foundCheese = True
+                    print("Found Cheese, Congrats!!")
                 self.maze.setElement(self.x-1, self.y, 3)
                 self.maze.setElement(self.x, self.y, 0)
                 self.previousX = self.x
                 self.previousY = self.y
                 self.x = self.x - 1
+                if(self.smellCheese()):
+                    print("Cheese close!!")
             
             else:
                 print("Cannot move, something Up")
@@ -117,11 +135,16 @@ class Mouse(object):
     def moveDown(self):
         try:
             if(not(self.isSomethingDown())):
+                if(self.maze.getElement(self.x+1, self.y) == 2):
+                    self.foundCheese = True
+                    print("Found Cheese, Congrats!!")
                 self.maze.setElement(self.x+1, self.y, 3)
                 self.maze.setElement(self.x, self.y, 0)
                 self.previousX = self.x+1
                 self.previousY = self.y
-                self.x = self.x+1 
+                self.x = self.x+1
+                if(self.smellCheese()):
+                    print("Cheese close!!")
             else:
                 print("Cannot move, something Down")
                 
@@ -132,11 +155,16 @@ class Mouse(object):
     def moveRight(self):
         try:
             if(not(self.isSomethingOnRight())):
+                if(self.maze.getElement(self.x, self.y+1) == 2):
+                    self.foundCheese = True
+                    print("Found Cheese, Congrats!!")
                 self.maze.setElement(self.x, self.y+1, 3)
                 self.maze.setElement(self.x, self.y, 0)
                 self.previousX = self.x
                 self.previousY = self.y
                 self.y = self.y + 1
+                if(self.smellCheese()):
+                    print("Cheese close!!")
             else:
                 print("Cannot move, something on the Right")
                 
@@ -171,13 +199,60 @@ def runSimpleIA():
     mainMaze.setElement(1, 3, 1)
     mainMaze.setElement(3, 2, 1)
     
-    print(mainMaze)
-
-    mouse.moveUp()
-    mouse.moveLeft()
+    step = 0
+    while(not(mouse.hadfoundCheese())):
+        if((not (mouse.isSomethingOnLeft())) and (not (mouse.isSomethingUp())) and (not (mouse.isSomethingOnRight())) and (not(mouse.isSomethingDown()))):
+            mouse.moveUp()
+            step+=1
+        if((not (mouse.isSomethingOnLeft())) and (not (mouse.isSomethingUp())) and (not (mouse.isSomethingOnRight())) and mouse.isSomethingDown()):
+            mouse.moveUp()
+            step+=1
+        if((not (mouse.isSomethingOnLeft())) and (not (mouse.isSomethingUp())) and mouse.isSomethingOnRight() and (not(mouse.isSomethingDown()))):
+            mouse.moveUp()
+            step+=1
+        if((not (mouse.isSomethingOnLeft())) and (not (mouse.isSomethingUp())) and mouse.isSomethingOnRight() and mouse.isSomethingDown()):
+            mouse.moveLeft()
+            step+=1
+        if((not (mouse.isSomethingOnLeft())) and mouse.isSomethingUp() and (not(mouse.isSomethingOnRight())) and (not(mouse.isSomethingDown()))):
+            mouse.moveLeft()
+            step+=1
+        if((not (mouse.isSomethingOnLeft())) and mouse.isSomethingUp() and (not(mouse.isSomethingOnRight()))and mouse.isSomethingDown()):
+            mouse.moveRight()
+            step+=1
+        if((not (mouse.isSomethingOnLeft())) and mouse.isSomethingUp() and mouse.isSomethingOnRight() and (not(mouse.isSomethingDown()))):
+            mouse.moveLeft()
+            step+=1
+        if((not (mouse.isSomethingOnLeft())) and mouse.isSomethingUp() and mouse.isSomethingOnRight() and mouse.isSomethingDown()):
+            mouse.moveLeft()
+            step+=1
+        if(mouse.isSomethingOnLeft() and (not (mouse.isSomethingUp())) and (not(mouse.isSomethingOnRight())) and (not(mouse.isSomethingDown()))):
+            mouse.moveUp()
+            step+=1
+        if(mouse.isSomethingOnLeft() and (not (mouse.isSomethingUp())) and (not(mouse.isSomethingOnRight())) and mouse.isSomethingDown()):
+            mouse.moveRight()
+            step+=1
+        if(mouse.isSomethingOnLeft() and (not (mouse.isSomethingUp())) and mouse.isSomethingOnRight() and (not(mouse.isSomethingDown()))):
+            mouse.moveDown()
+            step+=1
+        if(mouse.isSomethingOnLeft() and (not (mouse.isSomethingUp())) and mouse.isSomethingOnRight() and mouse.isSomethingDown()):
+            mouse.moveUp()
+            step+=1
+        if(mouse.isSomethingOnLeft() and mouse.isSomethingUp() and (not(mouse.isSomethingOnRight())) and (not(mouse.isSomethingDown()))):
+            mouse.moveRight()
+            step+=1
+        if(mouse.isSomethingOnLeft() and mouse.isSomethingUp() and (not(mouse.isSomethingOnRight())) and mouse.isSomethingDown()):
+            mouse.moveRight()
+            step+=1
+        if(mouse.isSomethingOnLeft() and mouse.isSomethingUp() and mouse.isSomethingOnRight() and (not(mouse.isSomethingDown()))):
+            mouse.moveDown()
+            step+=1
+            
+        print("Step: ", step)
+        print(mainMaze)
+        
     
-    print(mainMaze)
-    mainMaze.setElement(1,2, 6)
+    
+
 
 
 runSimpleIA()
