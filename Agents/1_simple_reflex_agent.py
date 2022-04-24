@@ -59,9 +59,33 @@ class Mouse(object):
     def __str__(self):
         return "The Mouse is here: ["+str(self.x)+" , " + str(self.y) +  "]"
     
+    def isSomethingUp(self):
+        if(self.maze.getElement(self.x-1, self.y) != 1 and self.maze.getElement(self.x-1, self.y) != 2):
+            return False
+        else:
+            return True
+    def isSomethingDown(self):
+        if(self.maze.getElement(self.x+1, self.y) != 1 and self.maze.getElement(self.x+1, self.y) != 2):
+            return False
+        else:
+            return True
+    def isSomethingOnLeft(self):
+        if(self.maze.getElement(self.x, self.y-1) != 1 and self.maze.getElement(self.x, self.y-1) != 2):
+            return False
+        else:
+            return True
+    def isSomethingOnRight(self):
+        if(self.maze.getElement(self.x, self.y+1) != 1 and self.maze.getElement(self.x, self.y+1) != 2):
+            return False
+        else:
+            return True
+        
+    def smellCheese(self):
+        pass
+    
     def moveLeft(self):
         try:
-            if(self.maze.getElement(self.x, self.y-1) != 1 and self.maze.getElement(self.x, self.y-1) != 2):
+            if(not(self.isSomethingOnLeft())):
                 self.maze.setElement(self.x, self.y-1, 3)
                 self.maze.setElement(self.x, self.y, 0)
                 self.previousX = self.x
@@ -76,7 +100,7 @@ class Mouse(object):
     
     def moveUp(self):
         try:
-            if(self.maze.getElement(self.x-1, self.y) != 1 and self.maze.getElement(self.x-1, self.y) != 2):
+            if(not (self.isSomethingUp())):
                 self.maze.setElement(self.x-1, self.y, 3)
                 self.maze.setElement(self.x, self.y, 0)
                 self.previousX = self.x
@@ -92,7 +116,7 @@ class Mouse(object):
             
     def moveDown(self):
         try:
-            if(self.maze.getElement(self.x+1, self.y) != 1 and self.maze.getElement(self.x+1, self.y) != 2):
+            if(not(self.isSomethingDown())):
                 self.maze.setElement(self.x+1, self.y, 3)
                 self.maze.setElement(self.x, self.y, 0)
                 self.previousX = self.x+1
@@ -107,7 +131,7 @@ class Mouse(object):
             
     def moveRight(self):
         try:
-            if(self.maze.getElement(self.x, self.y+1) != 1 and self.maze.getElement(self.x, self.y+1) != 2):
+            if(not(self.isSomethingOnRight())):
                 self.maze.setElement(self.x, self.y+1, 3)
                 self.maze.setElement(self.x, self.y, 0)
                 self.previousX = self.x
@@ -119,6 +143,9 @@ class Mouse(object):
         except IndexError as error:
             print("Try again")
             raise Exception("Error: "+str(error))
+        
+
+        
     
 
 # Recieves a Maze and an initial position of the Cheese
