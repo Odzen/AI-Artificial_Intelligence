@@ -5,12 +5,6 @@ Created on Sat Apr 23 23:13:36 2022
 @author: Juan Sebastian Velasquez Acevedo
 """
 
-
-
-#class Simple_Agent(object):
-#   def __init__(self, maze, ):
-    
-
 # Creat only the maze with  initially in each position
 # 0 represents an open path
 # 1 represents an obstacle
@@ -39,7 +33,6 @@ class Maze(object):
         except IndexError as error:
             print("Try again")
             raise Exception("Error: "+str(error))
-            
     
     def __str__(self):
         string = ""
@@ -49,11 +42,8 @@ class Maze(object):
             string+="\n"
         return string
             
-            
-    
-    
-"""
-# Recieves a Maze and an initial position of the mouse
+
+# Recieves a Maze and an initial position of the Mouse
 class Mouse(object):
     def __init__(self, x, y, maze):
         self.x = x
@@ -61,11 +51,20 @@ class Mouse(object):
         self.maze = maze
         
     def __str__(self):
-        return "["+str(x)+" , " + str(y) +  "]"
-               
-    """
+        return "The Mouse is here: ["+str(self.x)+" , " + str(self.y) +  "]"
 
-mainMaze = Maze(2)
+# Recieves a Maze and an initial position of the Cheese
+class Cheese(object):
+    def __init__(self, x, y, maze):
+        self.x = x
+        self.y= y
+        self.maze = maze
+        
+    def __str__(self):
+        return "The Cheese is here["+str(self.x)+" , " + str(self.y) +  "]"
+               
+
+mainMaze = Maze(4)
 print(mainMaze)
 mainMaze.setElement(0, 1, 3)
 print(mainMaze)
