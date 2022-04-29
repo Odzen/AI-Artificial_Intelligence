@@ -183,7 +183,7 @@ class MouseAgent1(object):
 # Agent 1
 class MouseAgent2(MouseAgent1):
     def __init__(self, x, y, maze):
-        super().__init__(self, x, y, maze)
+        super().__init__(x, y, maze)
         self.previousX = x
         self.previousY = y
         self.previuosPositions = []
@@ -194,19 +194,14 @@ class MouseAgent2(MouseAgent1):
     def getPreviousPositions(self):
         return self.previuosPositions
     
-    def setPreviousPositions(self, x, y):
-        copy = self.previuosPositions[:]
-        copy.append((x,y))
-        self.previuosPositions = copy
-    
-    def visitedPosition(self, x, y):  
+    def addVisitedPosition(self, x, y):  
         point = (int(self.x), int(self.y))
         if point not in self.previuosPositions:
             self.previuosPositions.append(point)
 
     
     def hadVisitedPosition(self,x,y):
-        if (x,y) not in self.previuosPositions:
+        if (x,y) in self.previuosPositions:
             return True
         else:
             return False
@@ -214,24 +209,28 @@ class MouseAgent2(MouseAgent1):
     def moveLeft(self):
         if(not(self.hadVisitedPosition(self.x, self.y-1))):
             super().moveLeft()
+            self.addVisitedPosition(self.x, self.y+1)
         else:
             print("Left position visited in the previous move")
 
     def moveUp(self):
         if(not(self.hadVisitedPosition(self.x-1, self.y))):
             super().moveUp()
+            self.addVisitedPosition(self.x+1, self.y)
         else:
             print("Upper position visited in the previous move")
 
     def moveDown(self):
         if(not(self.hadVisitedPosition(self.x+1, self.y))):
             super().moveDown()
+            self.addVisitedPosition(self.x-1, self.y)
         else:
             print("Down position visited in the previous move")
 
     def moveRight(self):
         if(not(self.hadVisitedPosition(self.x, self.y+1))):
             super().moveRight()
+            self.addVisitedPosition(self.x, self.y-1)
         else:
             print("Right position visited in the previous movement")
     

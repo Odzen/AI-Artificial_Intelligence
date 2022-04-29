@@ -5,7 +5,7 @@ Created on Fri Apr 29 00:15:50 2022
 @author: Juan Sebastian Velasquez Acevedo
 """
 
-def runIA(mouse, mainMaze, cheese):
+def runIA(mouse, mainMaze, cheese, maxSteps):
     """
 
     Parameters
@@ -19,69 +19,70 @@ def runIA(mouse, mainMaze, cheese):
     -------
 
     """
-    step = 0
-    while(not(mouse.hadfoundCheese())):
-        print("Step: ", step)
+    
+    steps = 0
+    while(not(mouse.hadfoundCheese()) and steps <= maxSteps):
+        print("Step: ", steps)
         if((not (mouse.isSomethingOnLeft())) and (not (mouse.isSomethingUp())) and (not (mouse.isSomethingOnRight())) and (not(mouse.isSomethingDown()))):
             print("Caso - 1")
             mouse.moveUp()
-            step+=1
+            steps+=1
         if((not (mouse.isSomethingOnLeft())) and (not (mouse.isSomethingUp())) and (not (mouse.isSomethingOnRight())) and mouse.isSomethingDown()):
             print("Caso - 2")
             mouse.moveUp()
-            step+=1
+            steps+=1
         if((not (mouse.isSomethingOnLeft())) and (not (mouse.isSomethingUp())) and mouse.isSomethingOnRight() and (not(mouse.isSomethingDown()))):
             print("Caso - 3")
             mouse.moveUp()
-            step+=1
+            steps+=1
         if((not (mouse.isSomethingOnLeft())) and (not (mouse.isSomethingUp())) and mouse.isSomethingOnRight() and mouse.isSomethingDown()):
             print("Caso - 4")
             mouse.moveUp()
-            step+=1
+            steps+=1
         if((not (mouse.isSomethingOnLeft())) and mouse.isSomethingUp() and (not(mouse.isSomethingOnRight())) and (not(mouse.isSomethingDown()))):
             print("Caso - 5")
             mouse.moveLeft()
-            step+=1
+            steps+=1
         if((not (mouse.isSomethingOnLeft())) and mouse.isSomethingUp() and (not(mouse.isSomethingOnRight()))and mouse.isSomethingDown()):
             print("Caso - 6")
             mouse.moveRight()
-            step+=1
+            steps+=1
         if((not (mouse.isSomethingOnLeft())) and mouse.isSomethingUp() and mouse.isSomethingOnRight() and (not(mouse.isSomethingDown()))):
             print("Caso - 7")
             mouse.moveLeft()
-            step+=1
+            steps+=1
         if((not (mouse.isSomethingOnLeft())) and mouse.isSomethingUp() and mouse.isSomethingOnRight() and mouse.isSomethingDown()):
             print("Caso - 8")
             mouse.moveLeft()
-            step+=1
+            steps+=1
         if(mouse.isSomethingOnLeft() and (not (mouse.isSomethingUp())) and (not(mouse.isSomethingOnRight())) and (not(mouse.isSomethingDown()))):
             print("Caso - 9")
             mouse.moveUp()
-            step+=1
+            steps+=1
         if(mouse.isSomethingOnLeft() and (not (mouse.isSomethingUp())) and (not(mouse.isSomethingOnRight())) and mouse.isSomethingDown()):
             print("Caso - 10")
             mouse.moveRight()
-            step+=1
+            steps+=1
         if(mouse.isSomethingOnLeft() and (not (mouse.isSomethingUp())) and mouse.isSomethingOnRight() and (not(mouse.isSomethingDown()))):
             print("Caso - 11")
             mouse.moveDown()
-            step+=1
+            steps+=1
         if(mouse.isSomethingOnLeft() and (not (mouse.isSomethingUp())) and mouse.isSomethingOnRight() and mouse.isSomethingDown()):
             print("Caso - 12")
             mouse.moveUp()
-            step+=1
+            steps+=1
         if(mouse.isSomethingOnLeft() and mouse.isSomethingUp() and (not(mouse.isSomethingOnRight())) and (not(mouse.isSomethingDown()))):
             print("Caso - 13")
             mouse.moveRight()
-            step+=1
+            steps+=1
         if(mouse.isSomethingOnLeft() and mouse.isSomethingUp() and (not(mouse.isSomethingOnRight())) and mouse.isSomethingDown()):
             print("Caso - 14")
             mouse.moveRight()
-            step+=1
+            steps+=1
         if(mouse.isSomethingOnLeft() and mouse.isSomethingUp() and mouse.isSomethingOnRight() and (not(mouse.isSomethingDown()))):
             print("Caso - 15")
             mouse.moveDown()
-            step+=1
+            steps+=1
         
         print(mainMaze)
 
