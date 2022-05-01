@@ -6,18 +6,27 @@ Created on Fri Apr 29 00:15:50 2022
 """
 import time
 
-def runIA(mouse, mainMaze, cheese, maxSteps, t):
+def runIAAgent1(mouse, mainMaze, cheese, maxSteps, t):
     """
 
     Parameters
     ----------
-    mouse : Mouse (Could be any of the 4 agents)
-        The Functions will behave differently depending on the type of mouse.
+    Parameters
+    ----------
+    mouse : MouseAgent1
+        Agent.
     mainMaze : Maze
+        Grid.
     cheese : Cheese
+        Cheese, goal.
+    maxSteps : int
+        maximun steps that the mouse is allowed to find the cheese.
+    t : int
+        time to sleep after each step.
 
-    Returns void, just executes the fucntion and print the path
+    Returns
     -------
+    None.
 
     """
     print("Initial Maze:")
@@ -106,6 +115,60 @@ def runIA(mouse, mainMaze, cheese, maxSteps, t):
         
         print(mainMaze)
         time.sleep(t)
+
+
+def runIAAgent2(mouse, mainMaze, cheese, maxSteps, t):
+    """
+
+    Parameters
+    ----------
+    mouse : MouseAgent2
+        Agent.
+    mainMaze : Maze
+        Grid.
+    cheese : Cheese
+        Cheese, goal.
+    maxSteps : int
+        maximun steps that the mouse is allowed to find the cheese.
+    t : int
+        time to sleep after each step.
+
+    Returns
+    -------
+    None.
+
+    """
+    print("Initial Maze:")
+    print(mainMaze)
+    steps = 1
+    while(not(mouse.hadfoundCheese()) and steps <= maxSteps):
+        print("Step: ", steps)
+        if (not (mouse.isSomethingOnLeft())) and (not (mouse.isSomethingUp())) and (not (mouse.isSomethingOnRight())) and (not(mouse.isSomethingDown())) and (not (mouse.isLeftExplored())) and (not (mouse.isUpperExplored())) and (not (mouse.isRightExplored())) and (not (mouse.isDownExplored())):
+            print("Caso - 1")
+            mouse.moveLeft()
+            steps+=1
+        elif (not (mouse.isSomethingOnLeft())) and (not (mouse.isSomethingUp())) and (not (mouse.isSomethingOnRight())) and mouse.isSomethingDown()  and mouse.isLeftExplored() and (not (mouse.isUpperExplored())) and (not (mouse.isRightExplored())) and (not (mouse.isDownExplored())): 
+            mouse.moveUp()
+            steps+=1
+        
+        if steps > maxSteps:
+            print("Your Mouse took too long!! Maybe there is no way he can find the cheese :(")
+        
+        print(mainMaze)
+        print(mouse.getMazePreviousPositions())
+        time.sleep(t)
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Solutions by hand for testing
 

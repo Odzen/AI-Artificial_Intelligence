@@ -10,7 +10,7 @@ import agents
 import ia_algorithms
 # import signal
 
-Test = 1
+Test = 4
 MaxSteps = 15
 t = 2 # 2 second
 
@@ -36,7 +36,7 @@ def main():
 
     width, height, lines = readFile.input(Test)
     mouse, mainMaze, cheese = transformData(width, height, lines)
-    ia_algorithms.runIA(mouse, mainMaze, cheese, MaxSteps, t)
+    ia_algorithms.runIAAgent1(mouse, mainMaze, cheese, MaxSteps, t)
     
     """
     It seems signal doesn't work in windows'

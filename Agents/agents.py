@@ -36,7 +36,7 @@ class Position(object):
         return Position(new_x, new_y)
 
     def __str__(self):  
-        return (self.x, self.y)
+        return  "(" + str(self.x) + "," +  str(self.y)  + ")"
 
 # Creat only the maze with  initially in each position
 # 0 represents an open path
@@ -49,6 +49,12 @@ class Maze(object):
         self.height = height
         self.maze = [ [0] * height for i in range(width)]
         self.OUT = 5
+    
+    def getWidth(self):
+        return self.width
+    
+    def getHeight(self):
+        return self.height
     
     def getNumCells(self):
         """
@@ -266,6 +272,7 @@ class MouseAgent2(MouseAgent1):
         self.previousX = position.getX()
         self.previousY = position.getY()
         self.previuosPositions = []
+        self.mazePreviuousPositions = Maze(self.maze.getWidth(), self.maze.getHeight())
     
     def previousPosition(self):
         return "The Mouse was here: ["+str(self.previousX)+" , " + str(self.previousY) +  "]"
@@ -273,45 +280,74 @@ class MouseAgent2(MouseAgent1):
     def getPreviousPositions(self):
         return self.previuosPositions
     
+    def getMazePreviousPositions(self):
+        return self.mazePreviuousPositions
+    
     def addVisitedPosition(self, position):  
         point = (int(self.position.getX()), int(self.position.getY()))
-        if point not in self.previuosPositions:
+        if point not in self.previuosPositions and self.mazePreviuousPositions.getElement(position) != 1:
             self.previuosPositions.append(point)
+            self.mazePreviuousPositions.setElement(position, 1)
 
     
     def hadVisitedPosition(self,position):
-        if (position.getX(),position.getY()) in self.previuosPositions:
+        if self.mazePreviuousPositions.getElement(position) != 1 :
+            return False
+        else:
+            return True
+    
+    def isUpperExplored(self):
+        lookUp = Position(self.position.getX()-1, self.position.getY())
+        if(self.hadVisitedPosition(lookUp)):
+            return True
+        else:
+            return False
+    
+    def isLeftExplored(self):
+        lookLeft = Position(self.position.getX(), self.position.getY()-1)
+        if(self.hadVisitedPosition(lookLeft)):
+            return True
+        else:
+            return False
+    
+    def isRightExplored(self):
+        lookRight = Position(self.position.getX(), self.position.getY()+1)
+        print(self.hadVisitedPosition(lookRight))
+        if(self.hadVisitedPosition(lookRight)):
+            return True
+        else:
+            return False
+        
+    def isDownExplored(self):
+        lookDown = Position(self.position.getX()+1, self.position.getY())
+        if(self.hadVisitedPosition(lookDown)):
             return True
         else:
             return False
     
     def moveLeft(self):
-        lookLeft = Position(self.position.getX(), self.position.getY()-1)
-        if(not(self.hadVisitedPosition(lookLeft))):
+        if(not(self.isLeftExplored())):
             self.addVisitedPosition(self.position)
             super().moveLeft()
         else:
             print("Left position visited before")
             
     def moveUp(self):
-        lookUp = Position(self.position.getX()-1, self.position.getY())
-        if(not(self.hadVisitedPosition(lookUp))):
+        if(not(self.isUpperExplored())):
             self.addVisitedPosition(self.position)
             super().moveUp()
         else:
             print("Upper position visited before")
 
     def moveDown(self):
-        lookDown = Position(self.position.getX()+1, self.position.getY())
-        if(not(self.hadVisitedPosition(lookDown))):
+        if(not(self.isDownExplored())):
             self.addVisitedPosition(self.position)
             super().moveDown()
         else:
             print("Down position visited before")
 
     def moveRight(self):
-        lookRight = Position(self.position.getX(), self.position.getY()+1)
-        if(not(self.hadVisitedPosition(lookRight))):
+        if(not(self.isRightExplored())):
             self.addVisitedPosition(self.position)
             super().moveRight()
         else:
