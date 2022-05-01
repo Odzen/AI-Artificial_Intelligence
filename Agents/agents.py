@@ -181,6 +181,7 @@ class MouseAgent1(object):
                 newPosition = self.position.setPosition(self.position.getX() , newY)
                 self.maze.setElement(newPosition, 3)
                 self.setAgentPosition(newPosition)
+                print("Moved Left")
                 if(self.smellCheese()):
                     print("Cheese close!")
             else:
@@ -201,6 +202,7 @@ class MouseAgent1(object):
                 newPosition = self.position.setPosition(newX , self.position.getY())
                 self.maze.setElement(newPosition, 3)
                 self.setAgentPosition(newPosition)
+                print("Moved Up")
                 if(self.smellCheese()):
                     print("Cheese close!!")
             
@@ -223,6 +225,7 @@ class MouseAgent1(object):
                 newPosition = self.position.setPosition(newX , self.position.getY())
                 self.maze.setElement(newPosition, 3)
                 self.setAgentPosition(newPosition)
+                print("Moved Down")
                 if(self.smellCheese()):
                     print("Cheese close!!")
             else:
@@ -244,6 +247,7 @@ class MouseAgent1(object):
                 newPosition = self.position.setPosition(self.position.getX() , newY)
                 self.maze.setElement(newPosition, 3)
                 self.setAgentPosition(newPosition)
+                print("Moved Right")
                 if(self.smellCheese()):
                     print("Cheese close!!")
             else:

@@ -4,8 +4,9 @@ Created on Fri Apr 29 00:15:50 2022
 
 @author: Juan Sebastian Velasquez Acevedo
 """
+import time
 
-def runIA(mouse, mainMaze, cheese, maxSteps):
+def runIA(mouse, mainMaze, cheese, maxSteps, t):
     """
 
     Parameters
@@ -19,72 +20,92 @@ def runIA(mouse, mainMaze, cheese, maxSteps):
     -------
 
     """
-    
-    steps = 0
+    print("Initial Maze:")
+    print(mainMaze)
+    steps = 1
     while(not(mouse.hadfoundCheese()) and steps <= maxSteps):
         print("Step: ", steps)
         if((not (mouse.isSomethingOnLeft())) and (not (mouse.isSomethingUp())) and (not (mouse.isSomethingOnRight())) and (not(mouse.isSomethingDown()))):
             print("Caso - 1")
             mouse.moveUp()
             steps+=1
-        if((not (mouse.isSomethingOnLeft())) and (not (mouse.isSomethingUp())) and (not (mouse.isSomethingOnRight())) and mouse.isSomethingDown()):
+            
+        elif((not (mouse.isSomethingOnLeft())) and (not (mouse.isSomethingUp())) and (not (mouse.isSomethingOnRight())) and mouse.isSomethingDown()):
             print("Caso - 2")
             mouse.moveUp()
             steps+=1
-        if((not (mouse.isSomethingOnLeft())) and (not (mouse.isSomethingUp())) and mouse.isSomethingOnRight() and (not(mouse.isSomethingDown()))):
+            
+        elif((not (mouse.isSomethingOnLeft())) and (not (mouse.isSomethingUp())) and mouse.isSomethingOnRight() and (not(mouse.isSomethingDown()))):
             print("Caso - 3")
             mouse.moveUp()
             steps+=1
-        if((not (mouse.isSomethingOnLeft())) and (not (mouse.isSomethingUp())) and mouse.isSomethingOnRight() and mouse.isSomethingDown()):
+            
+        elif((not (mouse.isSomethingOnLeft())) and (not (mouse.isSomethingUp())) and mouse.isSomethingOnRight() and mouse.isSomethingDown()):
             print("Caso - 4")
             mouse.moveUp()
             steps+=1
-        if((not (mouse.isSomethingOnLeft())) and mouse.isSomethingUp() and (not(mouse.isSomethingOnRight())) and (not(mouse.isSomethingDown()))):
+            
+        elif((not (mouse.isSomethingOnLeft())) and mouse.isSomethingUp() and (not(mouse.isSomethingOnRight())) and (not(mouse.isSomethingDown()))):
             print("Caso - 5")
             mouse.moveLeft()
             steps+=1
-        if((not (mouse.isSomethingOnLeft())) and mouse.isSomethingUp() and (not(mouse.isSomethingOnRight()))and mouse.isSomethingDown()):
+            
+        elif((not (mouse.isSomethingOnLeft())) and mouse.isSomethingUp() and (not(mouse.isSomethingOnRight()))and mouse.isSomethingDown()):
             print("Caso - 6")
             mouse.moveRight()
             steps+=1
-        if((not (mouse.isSomethingOnLeft())) and mouse.isSomethingUp() and mouse.isSomethingOnRight() and (not(mouse.isSomethingDown()))):
+            
+        elif((not (mouse.isSomethingOnLeft())) and mouse.isSomethingUp() and mouse.isSomethingOnRight() and (not(mouse.isSomethingDown()))):
             print("Caso - 7")
             mouse.moveLeft()
             steps+=1
-        if((not (mouse.isSomethingOnLeft())) and mouse.isSomethingUp() and mouse.isSomethingOnRight() and mouse.isSomethingDown()):
+            
+        elif((not (mouse.isSomethingOnLeft())) and mouse.isSomethingUp() and mouse.isSomethingOnRight() and mouse.isSomethingDown()):
             print("Caso - 8")
             mouse.moveLeft()
             steps+=1
-        if(mouse.isSomethingOnLeft() and (not (mouse.isSomethingUp())) and (not(mouse.isSomethingOnRight())) and (not(mouse.isSomethingDown()))):
+            
+        elif(mouse.isSomethingOnLeft() and (not (mouse.isSomethingUp())) and (not(mouse.isSomethingOnRight())) and (not(mouse.isSomethingDown()))):
             print("Caso - 9")
             mouse.moveUp()
             steps+=1
-        if(mouse.isSomethingOnLeft() and (not (mouse.isSomethingUp())) and (not(mouse.isSomethingOnRight())) and mouse.isSomethingDown()):
+            
+        elif(mouse.isSomethingOnLeft() and (not (mouse.isSomethingUp())) and (not(mouse.isSomethingOnRight())) and mouse.isSomethingDown()):
             print("Caso - 10")
             mouse.moveRight()
             steps+=1
-        if(mouse.isSomethingOnLeft() and (not (mouse.isSomethingUp())) and mouse.isSomethingOnRight() and (not(mouse.isSomethingDown()))):
+            
+        elif(mouse.isSomethingOnLeft() and (not (mouse.isSomethingUp())) and mouse.isSomethingOnRight() and (not(mouse.isSomethingDown()))):
             print("Caso - 11")
             mouse.moveDown()
             steps+=1
-        if(mouse.isSomethingOnLeft() and (not (mouse.isSomethingUp())) and mouse.isSomethingOnRight() and mouse.isSomethingDown()):
+            
+        elif(mouse.isSomethingOnLeft() and (not (mouse.isSomethingUp())) and mouse.isSomethingOnRight() and mouse.isSomethingDown()):
             print("Caso - 12")
             mouse.moveUp()
             steps+=1
-        if(mouse.isSomethingOnLeft() and mouse.isSomethingUp() and (not(mouse.isSomethingOnRight())) and (not(mouse.isSomethingDown()))):
+            
+        elif(mouse.isSomethingOnLeft() and mouse.isSomethingUp() and (not(mouse.isSomethingOnRight())) and (not(mouse.isSomethingDown()))):
             print("Caso - 13")
             mouse.moveRight()
             steps+=1
-        if(mouse.isSomethingOnLeft() and mouse.isSomethingUp() and (not(mouse.isSomethingOnRight())) and mouse.isSomethingDown()):
+            
+        elif(mouse.isSomethingOnLeft() and mouse.isSomethingUp() and (not(mouse.isSomethingOnRight())) and mouse.isSomethingDown()):
             print("Caso - 14")
             mouse.moveRight()
             steps+=1
-        if(mouse.isSomethingOnLeft() and mouse.isSomethingUp() and mouse.isSomethingOnRight() and (not(mouse.isSomethingDown()))):
+            
+        else:
+        #(mouse.isSomethingOnLeft() and mouse.isSomethingUp() and mouse.isSomethingOnRight() and (not(mouse.isSomethingDown()))):
             print("Caso - 15")
             mouse.moveDown()
             steps+=1
         
+        if steps > maxSteps:
+            print("Your Mouse took too long!! Maybe there is no way he can find the cheese :(")
+        
         print(mainMaze)
+        time.sleep(t)
 
 ## Solutions by hand for testing
 
