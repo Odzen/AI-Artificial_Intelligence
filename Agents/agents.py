@@ -273,45 +273,49 @@ class MouseAgent2(MouseAgent1):
     def getPreviousPositions(self):
         return self.previuosPositions
     
-    def addVisitedPosition(self, x, y):  
+    def addVisitedPosition(self, position):  
         point = (int(self.position.getX()), int(self.position.getY()))
         if point not in self.previuosPositions:
             self.previuosPositions.append(point)
 
     
-    def hadVisitedPosition(self,x,y):
-        if (x,y) in self.previuosPositions:
+    def hadVisitedPosition(self,position):
+        if (position.getX(),position.getY()) in self.previuosPositions:
             return True
         else:
             return False
     
     def moveLeft(self):
-        if(not(self.hadVisitedPosition(self.position.getX(), self.position.getY()-1))):
+        lookLeft = Position(self.position.getX(), self.position.getY()-1)
+        if(not(self.hadVisitedPosition(lookLeft))):
+            self.addVisitedPosition(self.position)
             super().moveLeft()
-            self.addVisitedPosition(self.position.getX(), self.position.getY()+1)
         else:
-            print("Left position visited in the previous move")
-
+            print("Left position visited before")
+            
     def moveUp(self):
-        if(not(self.hadVisitedPosition(self.position.getX()-1, self.position.getY()))):
+        lookUp = Position(self.position.getX()-1, self.position.getY())
+        if(not(self.hadVisitedPosition(lookUp))):
+            self.addVisitedPosition(self.position)
             super().moveUp()
-            self.addVisitedPosition(self.position.getX()+1, self.position.getY())
         else:
-            print("Upper position visited in the previous move")
+            print("Upper position visited before")
 
     def moveDown(self):
-        if(not(self.hadVisitedPosition(self.position.getX()+1, self.position.getY()))):
+        lookDown = Position(self.position.getX()+1, self.position.getY())
+        if(not(self.hadVisitedPosition(lookDown))):
+            self.addVisitedPosition(self.position)
             super().moveDown()
-            self.addVisitedPosition(self.position.getX()-1, self.position.getY())
         else:
-            print("Down position visited in the previous move")
+            print("Down position visited before")
 
     def moveRight(self):
-        if(not(self.hadVisitedPosition(self.position.getX(), self.position.getY()+1))):
+        lookRight = Position(self.position.getX(), self.position.getY()+1)
+        if(not(self.hadVisitedPosition(lookRight))):
+            self.addVisitedPosition(self.position)
             super().moveRight()
-            self.addVisitedPosition(self.position.getX(), self.position.getY()-1)
         else:
-            print("Right position visited in the previous movement")
+            print("Right position visited before")
     
 
 
