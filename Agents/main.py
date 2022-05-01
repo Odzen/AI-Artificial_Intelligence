@@ -23,10 +23,12 @@ def transformData(width, height, lines):
     for x in range(len(lines)):
         for y in range(len(lines)):
             if lines[x][y] == 2:
-                cheese = agents.Cheese(x,y,mainMaze)
+                cheesePosition = agents.Position(x,y)
+                cheese = agents.Cheese(cheesePosition,mainMaze)
             if lines[x][y] == 3:
-                mouse = agents.MouseAgent2(x,y,mainMaze)
-            mainMaze.setElement(x, y, lines[x][y])
+                mousePosition = agents.Position(x,y)
+                mouse = agents.MouseAgent1(mousePosition,mainMaze)
+            mainMaze.setElement(agents.Position(x,y), lines[x][y])
     
     return mouse, mainMaze, cheese
 
