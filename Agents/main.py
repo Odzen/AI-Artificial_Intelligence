@@ -36,7 +36,12 @@ def main():
 
     width, height, lines = readFile.input(Test)
     mouse, mainMaze, cheese = transformData(width, height, lines)
-    ia_algorithms.runIAAgent1(mouse, mainMaze, cheese, MaxSteps, t)
+    
+    # IA Agent 1
+    #ia_algorithms.runIAAgent1(mouse, mainMaze, cheese, MaxSteps, t)
+    
+    # IA Agent 2
+    ia_algorithms.runIAAgent2(mouse, mainMaze, cheese, MaxSteps, t)
     
     """
     It seems signal doesn't work in windows'

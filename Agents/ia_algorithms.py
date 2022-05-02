@@ -147,10 +147,33 @@ def runIAAgent2(mouse, mainMaze, cheese, maxSteps, t):
             print("Caso - 1")
             mouse.moveLeft()
             steps+=1
-        elif (not (mouse.isSomethingOnLeft())) and (not (mouse.isSomethingUp())) and (not (mouse.isSomethingOnRight())) and mouse.isSomethingDown()  and mouse.isLeftExplored() and (not (mouse.isUpperExplored())) and (not (mouse.isRightExplored())) and (not (mouse.isDownExplored())): 
+        elif (not (mouse.isSomethingOnLeft())) and (not (mouse.isSomethingUp())) and (not (mouse.isSomethingOnRight())) and (not(mouse.isSomethingDown()))  and mouse.isLeftExplored() and (not (mouse.isUpperExplored())) and (not (mouse.isRightExplored())) and (not (mouse.isDownExplored())): 
+            print("Caso - 2")
             mouse.moveUp()
             steps+=1
-        
+        elif (not (mouse.isSomethingOnLeft())) and (not (mouse.isSomethingUp())) and (not (mouse.isSomethingOnRight())) and (not(mouse.isSomethingDown()))  and mouse.isLeftExplored() and mouse.isUpperExplored() and (not (mouse.isRightExplored())) and (not (mouse.isDownExplored())) :
+            print("Caso - 3")
+            mouse.moveRight()
+            steps+=1
+        elif (not (mouse.isSomethingOnLeft())) and mouse.isSomethingUp() and (not (mouse.isSomethingOnRight())) and mouse.isSomethingDown()  and mouse.isLeftExplored() and (not (mouse.isUpperExplored())) and (not (mouse.isRightExplored())) and (not (mouse.isDownExplored())): 
+            print("Caso - 4")
+            mouse.moveRight()
+            steps+=1
+        elif (not (mouse.isSomethingOnLeft())) and mouse.isSomethingUp() and (not (mouse.isSomethingOnRight())) and (not(mouse.isSomethingDown()))  and mouse.isLeftExplored() and (not (mouse.isUpperExplored())) and (not (mouse.isRightExplored())) and (not (mouse.isDownExplored())): 
+            print("Caso - 5")
+            mouse.moveRight()
+            steps+=1
+        elif (not (mouse.isSomethingOnLeft())) and mouse.isSomethingUp() and (not (mouse.isSomethingOnRight())) and (not(mouse.isSomethingDown()))  and mouse.isLeftExplored() and (not (mouse.isUpperExplored())) and mouse.isRightExplored() and (not (mouse.isDownExplored())): 
+            print("Caso - 6")
+            mouse.moveDown()
+            steps+=1
+        elif mouse.isSomethingOnLeft() and mouse.isSomethingUp() and (not (mouse.isSomethingOnRight())) and (not(mouse.isSomethingDown()))  and (not(mouse.isLeftExplored())) and (not (mouse.isUpperExplored())) and (not(mouse.isRightExplored())) and (not (mouse.isDownExplored())): 
+            print("Caso - 7")
+            mouse.moveRight()
+            steps+=1
+        else:
+            print("None of the cases")
+            
         if steps > maxSteps:
             print("Your Mouse took too long!! Maybe there is no way he can find the cheese :(")
         
